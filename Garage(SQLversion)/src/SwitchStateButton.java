@@ -9,7 +9,7 @@ public class SwitchStateButton  implements ActionListener{
 	
 	public SwitchStateButton(Screen s, Screen.State state){
 		this.state = state;
-		Screen scr = s;
+		scr = s;
 	}
 	
 	public void actionPerformed(ActionEvent e) { 
