@@ -73,6 +73,12 @@ public class Connect {
 		//myDbTest.retrieve();
 		
 	}
+	public void addNewVehicle(Connection con, String make, String model, int year, int type){
+		try{
+			String sql = "INSERT INTO nate.Vehicle(make,model,year,type) VALUES ('" + make + "', '" + model + "', " + year + ", " + type;
+		}
+	}
+	
 	public void retrieve(){
 		Connection con = getConnection();
 		try{

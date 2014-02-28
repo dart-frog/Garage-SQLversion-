@@ -15,17 +15,16 @@ public class PrintButtonActionListener implements ActionListener {
 	private JTextField modelField;
 	private JTextField yearField;
 	private JRadioButton boatButton;
-	private JRadioButton elecrticCarButton;
+	private JRadioButton electricCarButton;
 	private JRadioButton gasCarButton;
 	
 	public PrintButtonActionListener(JTextField makeField, JTextField modelField, JTextField yearField, JRadioButton boatButton, JRadioButton electricCarButton, JRadioButton gasCarButton){
 		this.makeField = makeField;
 		this.modelField = modelField;
-		this.jTB = jTB;
-		this.jTA = jTA;
-		this.jRB1=jRB1;
-		this.jRB2=jRB2;
-		this.jRB3=jRB3;
+		this.yearField = yearField;
+		this.boatButton = boatButton;
+		this.electricCarButton = electricCarButton;
+		this.gasCarButton = gasCarButton;
 	}
 	
 	@Override
@@ -36,18 +35,18 @@ public class PrintButtonActionListener implements ActionListener {
 		 System.out.println("Toggle Button: " + Boolean.toString(jTB.isSelected()));
 		 System.out.println("Text: " + jTA.getText());
 	}
-	public int radio(){
-		int radio = 0;
-		if (jRB1.isSelected()){
-			radio = 1;
+	public int type(){
+		int type = 0;
+		if (boatButton.isSelected()){
+			type = 1;
 		}
-		if (jRB2.isSelected()){
-			radio =2;
+		if (electricCarButton.isSelected()){
+			type =2;
 		}
-		if (jRB3.isSelected()){
-			radio =3;
+		if (gasCarButton.isSelected()){
+			type =3;
 		}
-		return radio;
+		return type;
 	}
 
 }
