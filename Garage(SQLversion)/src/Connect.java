@@ -19,7 +19,7 @@ public class Connect {
 		return url+serverName+":"+portNumber+";databaseName="+databaseName+";selectMethod=" + selectMethod+ ";";
 	}
 	
-	private java.sql.Connection getConnection(){
+	public java.sql.Connection getConnection(){
 		try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerConnection");
 				con = java.sql.DriverManager.getConnection(getConnectionUrl(), userName, password);
@@ -29,7 +29,7 @@ public class Connect {
 				System.out.println("Error Trace in getConnection() : " + e.getMessage());
 			}
 			return con;
-		}
+	}
 		/*
 		public void displayDbProperties(){
 			java.sql.DatabaseMetaData dm = null;
@@ -73,14 +73,22 @@ public class Connect {
 		//myDbTest.retrieve();
 		
 	}
-	public void addNewVehicle(Connection con, String make, String model, int year, int type){
+	public void addNewVehicle( String make, String model, int year, int type){
+		Connection con = getConnection();
 		try{
-			String sql = "INSERT INTO nate.Vehicle(make,model,year,type) VALUES ('" + make + "', '" + model + "', " + year + ", " + type;
+			String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId) VALUES ('" + make + "', '" + model + "', " + year + ", " + type + ")";
+			Statement stmt = con.createStatement();
+			int count = stmt.executeUpdate(sql);
+			System.out.println("ROWS AFFECTED:" + count);
+			stmt.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
 	public void retrieve(){
-		Connection con = getConnection();
+
 		try{
 			String sql = "SELECT make,model,year FROM nate.Vehicle";
 			Statement stmt = con.createStatement();

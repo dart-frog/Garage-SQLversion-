@@ -29,13 +29,22 @@ public class PrintButtonActionListener implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		 System.out.println("Check Box 1: " + Boolean.toString(jCB1.isSelected()));
+		 String make = makeField.getText();
+		 String model = modelField.getText();
+		 int year = Integer.parseInt(yearField.getText());
+		 int type = getType();
+		 Connect stream = new Connect();
+		 stream.addNewVehicle(make,model,year,type);
+		
+		/*
+			System.out.println("Check Box 1: " + Boolean.toString(jCB1.isSelected()));
 		 System.out.println("Check Box 2: " + Boolean.toString(jCB2.isSelected()));
 		 System.out.println("Radio " + radio());
 		 System.out.println("Toggle Button: " + Boolean.toString(jTB.isSelected()));
 		 System.out.println("Text: " + jTA.getText());
+		 */
 	}
-	public int type(){
+	public int getType(){
 		int type = 0;
 		if (boatButton.isSelected()){
 			type = 1;

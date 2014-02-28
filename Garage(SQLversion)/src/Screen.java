@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 
 public class Screen extends JFrame {
-	
+	Connect stream = new Connect();
 	JPanel create;
 	JPanel home;
 	JPanel display;
@@ -25,11 +25,11 @@ public class Screen extends JFrame {
 		scr.setUp();
 	}
 	public void setUp(){
-		Screen scr = new Screen();
-		scr.pack();
-		scr.setVisible(true);
+		this.pack();
+		this.setVisible(true);
 	}
 	public Screen(){
+		stream.getConnection();
 		this.setTitle("Garage");
 		cl = new CardLayout();
 		masterPanel = new JPanel(cl);
@@ -67,10 +67,14 @@ public class Screen extends JFrame {
 		bGroup.add(electricCarButton );
 		create.add(electricCarButton );
 		
-		JRadioButton GasCarButton = new JRadioButton("Gas Car");
+		JRadioButton gasCarButton = new JRadioButton("Gas Car");
 		//GasCarButton.addActionListener(this);
-		bGroup.add(GasCarButton);	
-		create.add(GasCarButton);
+		bGroup.add(gasCarButton);	
+		create.add(gasCarButton);
+		JButton inputButton = new JButton("Add");
+		inputButton.addActionListener(new PrintButtonActionListener(makeField, modelField, yearField, boatButton, electricCarButton, gasCarButton)); 
+		create.add(inputButton);
+		
         masterPanel.add(display, "Display");
         display.add(new JLabel("display"));
         
