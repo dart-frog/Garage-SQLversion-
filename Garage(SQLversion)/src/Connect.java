@@ -87,14 +87,16 @@ public class Connect {
 		}
 	}
 	
-	public void retrieve(){
-
+	
+	public String retrieve(){
+		Connection con = getConnection();
+		String g = "";
 		try{
 			String sql = "SELECT make,model,year FROM nate.Vehicle";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){
-				System.out.println(rs.getString("make") + ", " + rs.getString("model") + ", " + rs.getInt("year"));
+				g += rs.getString("make") + ", " + rs.getString("model") + ", " + rs.getInt("year") + "\n";
 			}
 			rs.close();
 			stmt.close();
@@ -102,6 +104,7 @@ public class Connect {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		return g;
 	}
 	
 }

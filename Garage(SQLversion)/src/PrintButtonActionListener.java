@@ -36,13 +36,6 @@ public class PrintButtonActionListener implements ActionListener {
 		 Connect stream = new Connect();
 		 stream.addNewVehicle(make,model,year,type);
 		
-		/*
-			System.out.println("Check Box 1: " + Boolean.toString(jCB1.isSelected()));
-		 System.out.println("Check Box 2: " + Boolean.toString(jCB2.isSelected()));
-		 System.out.println("Radio " + radio());
-		 System.out.println("Toggle Button: " + Boolean.toString(jTB.isSelected()));
-		 System.out.println("Text: " + jTA.getText());
-		 */
 	}
 	public int getType(){
 		int type = 0;

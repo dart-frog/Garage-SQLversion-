@@ -16,6 +16,8 @@ import net.miginfocom.swing.MigLayout;
 public class Screen extends JFrame {
 	Connect stream = new Connect();
 	JPanel create;
+	JPanel createCar;
+	JPanel createBoat;
 	JPanel home;
 	JPanel display;
 	JPanel masterPanel;
@@ -45,41 +47,50 @@ public class Screen extends JFrame {
         home.add(new JLabel("home"));
         JButton addButton = new JButton("Add New Vehicle");
         addButton.addActionListener( new SwitchStateButton(this, State.CREATE));
-        JTextArea garage = new JTextArea("garage");
+        Connect stream = new Connect();
+        JTextArea garage = new JTextArea(stream.retrieve());
         home.add(garage);
         home.add(addButton);
         masterPanel.add(create, "Create");
-        create.add(new JLabel("create"), "cell 0 0, center align");
-        JTextField makeField = new JTextField("make");
-        create.add(makeField, "cell 0 1, w 100%");
-        JTextField modelField = new JTextField("model");
-        create.add(modelField, "cell 0 2, w 100%");
-        JTextField yearField = new JTextField("year");
-        create.add(yearField, "cell 0 3, w 100%");
-		ButtonGroup bGroup = new ButtonGroup();
-		JRadioButton boatButton = new JRadioButton("Boat");
-		//boatButton.addActionListener(this);
-		bGroup.add(boatButton);
-		create.add(boatButton, "cell 0 4");
-		
-		JRadioButton electricCarButton = new JRadioButton("Electric Car");
-		//electricCarButton .addActionListener(this);
-		bGroup.add(electricCarButton );
-		create.add(electricCarButton );
-		
-		JRadioButton gasCarButton = new JRadioButton("Gas Car");
-		//GasCarButton.addActionListener(this);
-		bGroup.add(gasCarButton);	
-		create.add(gasCarButton);
-		JButton inputButton = new JButton("Add");
-		inputButton.addActionListener(new PrintButtonActionListener(makeField, modelField, yearField, boatButton, electricCarButton, gasCarButton)); 
-		create.add(inputButton);
+        create.add(new JLabel("Would you like to add a Car or Boat"), "cell 0 0, center align");
+        masterPanel.add(createCar, "CreateCar");
+        masterPanel.add(createBoat, "Createboat");
+        JButton carSelect = new JButton("Car");
+        carSelect.addActionListener(new SwitchStateButton(this, State.CREATECAR));
+        
+        JButton boatSelect = new JButton();
 		
         masterPanel.add(display, "Display");
         display.add(new JLabel("display"));
         
         add(masterPanel);
         
+	}
+	public void addCreateComponents(JPanel jp){
+		JTextField makeField = new JTextField("make");
+		jp.add(makeField, "cell 0 1, w 100%");
+        JTextField modelField = new JTextField("model");
+        jp.add(modelField, "cell 0 2, w 100%");
+        JTextField yearField = new JTextField("year");
+        jp.add(yearField, "cell 0 3, w 100%");
+		ButtonGroup bGroup = new ButtonGroup();
+		JRadioButton boatButton = new JRadioButton("Boat");
+		//boatButton.addActionListener(this);
+		bGroup.add(boatButton);
+		jp.add(boatButton, "cell 0 4");
+		
+		JRadioButton electricCarButton = new JRadioButton("Electric Car");
+		//electricCarButton .addActionListener(this);
+		bGroup.add(electricCarButton );
+		jp.add(electricCarButton );
+		
+		JRadioButton gasCarButton = new JRadioButton("Gas Car");
+		//GasCarButton.addActionListener(this);
+		bGroup.add(gasCarButton);	
+		jp.add(gasCarButton);
+		JButton inputButton = new JButton("Add");
+		inputButton.addActionListener(new PrintButtonActionListener(makeField, modelField, yearField, boatButton, electricCarButton, gasCarButton)); 
+		jp.add(inputButton);
 	}
 	
 	public void switchToCard(State state) {
@@ -94,6 +105,11 @@ public class Screen extends JFrame {
 			case DISPLAY:
 				((CardLayout) masterPanel.getLayout()).show(masterPanel, "Display");
 				break;
+			case CREATECAR:
+				((CardLayout) masterPanel.getLayout()).show(masterPanel, "CreateCar");
+				break;
+			case CREATEBOAT:
+				((CardLayout) masterPanel.getLayout()).show(masterPanel, "CreateBoat");
 			default:
 				throw new IllegalArgumentException();
 		}
@@ -101,6 +117,8 @@ public class Screen extends JFrame {
 	public static enum State {
 		HOME,
 		CREATE,
-		DISPLAY
+		DISPLAY,
+		CREATECAR,
+		CREATEBOAT
 	}
 }
