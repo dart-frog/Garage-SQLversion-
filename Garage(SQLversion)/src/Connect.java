@@ -73,10 +73,23 @@ public class Connect {
 		//myDbTest.retrieve();
 		
 	}
-	public void addNewVehicle( String make, String model, int year, int type){
+	public void addNewBoat(String make, String model, int year, int range){
 		Connection con = getConnection();
 		try{
-			String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId) VALUES ('" + make + "', '" + model + "', " + year + ", " + type + ")";
+			String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId, range) VALUES ('" + make + "', '" + model + "', " + year + ", " + 1 + "," + range +")";
+			Statement stmt = con.createStatement();
+			int count = stmt.executeUpdate(sql);
+			System.out.println("ROWS AFFECTED:" + count);
+			stmt.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public void addNewCar(String make, String model, int year, int type, double efficiency, double capacity){
+		Connection con = getConnection();
+		try{
+			String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId, range, capacity, efficiency) VALUES ('" + make + "', '" + model + "', " + year + ", " + type + "," + (int)(efficiency * capacity) +"," + efficiency + "," + capacity +")";
 			Statement stmt = con.createStatement();
 			int count = stmt.executeUpdate(sql);
 			System.out.println("ROWS AFFECTED:" + count);

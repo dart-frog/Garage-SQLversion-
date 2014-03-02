@@ -10,21 +10,22 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
 
-public class PrintButtonActionListener implements ActionListener {
+public class CarActionListener implements ActionListener {
 	private JTextField makeField;	
 	private JTextField modelField;
 	private JTextField yearField;
-	private JRadioButton boatButton;
+	private JTextField efficiencyField;
+	private JTextField capacityField;
 	private JRadioButton electricCarButton;
 	private JRadioButton gasCarButton;
 	
-	public PrintButtonActionListener(JTextField makeField, JTextField modelField, JTextField yearField, JRadioButton boatButton, JRadioButton electricCarButton, JRadioButton gasCarButton){
+	public CarActionListener(JTextField makeField, JTextField modelField, JTextField yearField, JRadioButton electricCarButton, JRadioButton gasCarButton, JTextField efficiencyField, JTextField capacityField){
 		this.makeField = makeField;
 		this.modelField = modelField;
 		this.yearField = yearField;
-		this.boatButton = boatButton;
 		this.electricCarButton = electricCarButton;
 		this.gasCarButton = gasCarButton;
+		this.efficiencyField = efficiencyField;
 	}
 	
 	@Override
@@ -33,15 +34,14 @@ public class PrintButtonActionListener implements ActionListener {
 		 String model = modelField.getText();
 		 int year = Integer.parseInt(yearField.getText());
 		 int type = getType();
+		 double efficiency = Double.parseDouble(efficiencyField.getText());
+		 double capacity = Double.parseDouble(efficiencyField.getText());
 		 Connect stream = new Connect();
-		 stream.addNewVehicle(make,model,year,type);
+		 stream.addNewCar(make,model,year,type,efficiency,capacity);
 		
 	}
 	public int getType(){
 		int type = 0;
-		if (boatButton.isSelected()){
-			type = 1;
-		}
 		if (electricCarButton.isSelected()){
 			type =2;
 		}

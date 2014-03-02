@@ -39,7 +39,8 @@ public class Screen extends JFrame {
         setResizable(true);
         
         create = new JPanel(new MigLayout());
-        
+        createCar = new JPanel(new MigLayout());
+        createBoat = new JPanel(new MigLayout());
         home = new JPanel();
         display = new JPanel();
         
@@ -57,8 +58,34 @@ public class Screen extends JFrame {
         masterPanel.add(createBoat, "Createboat");
         JButton carSelect = new JButton("Car");
         carSelect.addActionListener(new SwitchStateButton(this, State.CREATECAR));
-        
-        JButton boatSelect = new JButton();
+        create.add(carSelect);
+        JButton boatSelect = new JButton("Boat");
+		boatSelect.addActionListener(new SwitchStateButton(this, State.CREATEBOAT));
+		create.add(boatSelect);
+		
+		//create car
+		createCar = new JPanel(new MigLayout());
+		JTextField makeField = new JTextField("make");
+		createCar.add(makeField, "cell 0 1, w 100%");
+        JTextField modelField = new JTextField("model");
+        createCar.add(modelField, "cell 0 2, w 100%");
+        JTextField yearField = new JTextField("year");
+        createCar.add(yearField, "cell 0 3, w 100%");
+        ButtonGroup bGroup = new ButtonGroup();
+		JRadioButton electricCarButton = new JRadioButton("Electric Car");
+		bGroup.add(electricCarButton );
+		createCar.add(electricCarButton );
+		JRadioButton gasCarButton = new JRadioButton("Gas Car");
+		bGroup.add(gasCarButton);	
+		createCar.add(gasCarButton);
+		JTextField efficiencyField = new JTextField("efficiency");
+		createCar.add(efficiencyField);
+		JTextField capacityField = new JTextField("capacity");
+		
+		JButton inputButton = new JButton("Add");
+		inputButton.addActionListener(new CarActionListener(makeField, modelField, yearField, electricCarButton, gasCarButton,)); 
+		createCar.add(inputButton);
+		
 		
         masterPanel.add(display, "Display");
         display.add(new JLabel("display"));
@@ -66,31 +93,16 @@ public class Screen extends JFrame {
         add(masterPanel);
         
 	}
-	public void addCreateComponents(JPanel jp){
+	public void addCreateComponents(JPanel jp, Panel panel){
 		JTextField makeField = new JTextField("make");
 		jp.add(makeField, "cell 0 1, w 100%");
         JTextField modelField = new JTextField("model");
         jp.add(modelField, "cell 0 2, w 100%");
         JTextField yearField = new JTextField("year");
         jp.add(yearField, "cell 0 3, w 100%");
-		ButtonGroup bGroup = new ButtonGroup();
-		JRadioButton boatButton = new JRadioButton("Boat");
-		//boatButton.addActionListener(this);
-		bGroup.add(boatButton);
-		jp.add(boatButton, "cell 0 4");
-		
-		JRadioButton electricCarButton = new JRadioButton("Electric Car");
-		//electricCarButton .addActionListener(this);
-		bGroup.add(electricCarButton );
-		jp.add(electricCarButton );
-		
-		JRadioButton gasCarButton = new JRadioButton("Gas Car");
-		//GasCarButton.addActionListener(this);
-		bGroup.add(gasCarButton);	
-		jp.add(gasCarButton);
-		JButton inputButton = new JButton("Add");
-		inputButton.addActionListener(new PrintButtonActionListener(makeField, modelField, yearField, boatButton, electricCarButton, gasCarButton)); 
-		jp.add(inputButton);
+        
+        
+        }
 	}
 	
 	public void switchToCard(State state) {
@@ -121,4 +133,5 @@ public class Screen extends JFrame {
 		CREATECAR,
 		CREATEBOAT
 	}
+	
 }
