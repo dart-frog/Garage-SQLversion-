@@ -99,7 +99,7 @@ public class Connect {
 			e.printStackTrace();
 		}
 	}
-	
+	  
 	
 	public String retrieve(){
 		Connection con = getConnection();

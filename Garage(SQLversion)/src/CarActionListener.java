@@ -38,6 +38,7 @@ public class CarActionListener implements ActionListener {
 		 double capacity = Double.parseDouble(efficiencyField.getText());
 		 Connect stream = new Connect();
 		 stream.addNewCar(make,model,year,type,efficiency,capacity);
+		 
 		
 	}
 	public int getType(){

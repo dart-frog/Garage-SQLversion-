@@ -65,44 +65,56 @@ public class Screen extends JFrame {
 		
 		//create car
 		createCar = new JPanel(new MigLayout());
-		JTextField makeField = new JTextField("make");
-		createCar.add(makeField, "cell 0 1, w 100%");
-        JTextField modelField = new JTextField("model");
-        createCar.add(modelField, "cell 0 2, w 100%");
-        JTextField yearField = new JTextField("year");
-        createCar.add(yearField, "cell 0 3, w 100%");
+		createCar.add(new JLabel("Make"));
+		JTextField makeField = new JTextField();
+		createCar.add(makeField, "w 100%");
+        createCar.add(new JLabel("Model"), "cell 0 2");
+		JTextField modelField = new JTextField();
+        createCar.add(modelField, "w 100%");
+        createCar.add(new JLabel("Year"), "cell 0 3");
+        JTextField yearField = new JTextField();
+        createCar.add(yearField, "w 100%");
         ButtonGroup bGroup = new ButtonGroup();
 		JRadioButton electricCarButton = new JRadioButton("Electric Car");
-		bGroup.add(electricCarButton );
-		createCar.add(electricCarButton );
+		bGroup.add(electricCarButton);
+		createCar.add(electricCarButton, "cell 0 6"  );
 		JRadioButton gasCarButton = new JRadioButton("Gas Car");
 		bGroup.add(gasCarButton);	
 		createCar.add(gasCarButton);
-		JTextField efficiencyField = new JTextField("efficiency");
-		createCar.add(efficiencyField);
-		JTextField capacityField = new JTextField("capacity");
-		
+		createCar.add(new JLabel("efficiency"), "cell 0 4");
+		JTextField efficiencyField = new JTextField();
+		createCar.add(efficiencyField, "w 100%");
+		createCar.add(new JLabel("Capacity"), "cell 0 5");
+		JTextField capacityField = new JTextField();
+		createCar.add(capacityField, "w 100%");
 		JButton inputButton = new JButton("Add");
-		inputButton.addActionListener(new CarActionListener(makeField, modelField, yearField, electricCarButton, gasCarButton,)); 
-		createCar.add(inputButton);
-		
-		
-        masterPanel.add(display, "Display");
+		inputButton.addActionListener(new CarActionListener(makeField, modelField, yearField, electricCarButton, gasCarButton,efficiencyField,capacityField)); 
+		createCar.add(inputButton, "cell 0 7");
+		masterPanel.add(createCar,"CreateCar");
+		//Create boat
+		JTextField makeBField = new JTextField("make");
+		createBoat.add(makeBField, "cell 0 1, w 100%");
+		JTextField modelBField = new JTextField("make");
+        createBoat.add(modelBField, "cell 0 2, w 100%");
+        JTextField yearBField = new JTextField("make");
+        createBoat.add(yearBField, "cell 0 3, w 100%");
+        JTextField rangeField = new JTextField();
+        createBoat.add(rangeField);
+		JButton inputB = new JButton("Add");
+		inputB.addActionListener(new BoatActionLister(makeField, modelField, yearField, rangeField));
+		createBoat.add(inputB);
+		masterPanel.add(createBoat, "CreateBoat");
+		masterPanel.add(display, "Display");
         display.add(new JLabel("display"));
         
         add(masterPanel);
         
 	}
-	public void addCreateComponents(JPanel jp, Panel panel){
-		JTextField makeField = new JTextField("make");
-		jp.add(makeField, "cell 0 1, w 100%");
-        JTextField modelField = new JTextField("model");
-        jp.add(modelField, "cell 0 2, w 100%");
-        JTextField yearField = new JTextField("year");
-        jp.add(yearField, "cell 0 3, w 100%");
+	public void addCreateComponents(JPanel jp){
+		
         
         
-        }
+        
 	}
 	
 	public void switchToCard(State state) {
@@ -122,6 +134,7 @@ public class Screen extends JFrame {
 				break;
 			case CREATEBOAT:
 				((CardLayout) masterPanel.getLayout()).show(masterPanel, "CreateBoat");
+				break;
 			default:
 				throw new IllegalArgumentException();
 		}
