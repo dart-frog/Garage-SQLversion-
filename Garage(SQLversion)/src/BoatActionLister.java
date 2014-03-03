@@ -27,10 +27,11 @@ public class BoatActionLister implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		 String make = makeField.getText();
 		 String model = modelField.getText();
-		 int year = Integer.parseInt(yearField.getText());
+		 //int year = Integer.parseInt(yearField.getText());
+		 
 		 int range = Integer.parseInt(rangeField.getText());
 		 Connect stream = new Connect();
-		 stream.addNewBoat(make,model,year,range);
+		 stream.addNewBoat(make,model,2002,range);
 		
 	}
 

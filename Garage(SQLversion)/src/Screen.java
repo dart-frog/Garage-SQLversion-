@@ -92,16 +92,20 @@ public class Screen extends JFrame {
 		createCar.add(inputButton, "cell 0 7");
 		masterPanel.add(createCar,"CreateCar");
 		//Create boat
-		JTextField makeBField = new JTextField("make");
-		createBoat.add(makeBField, "cell 0 1, w 100%");
-		JTextField modelBField = new JTextField("make");
-        createBoat.add(modelBField, "cell 0 2, w 100%");
-        JTextField yearBField = new JTextField("make");
-        createBoat.add(yearBField, "cell 0 3, w 100%");
+		createBoat.add(new JLabel("Make"), "cell 0 1");
+		JTextField makeBField = new JTextField("");
+		createBoat.add(makeBField, "w 100%");
+		createBoat.add(new JLabel("Model"), "cell 0 2");
+		JTextField modelBField = new JTextField("");   
+		createBoat.add(modelBField, "w 100%");
+		createBoat.add(new JLabel("Year"),"cell 0 3");
+        JTextField yearBField = new JTextField("");
+        createBoat.add(yearBField, " w 100%");
+        createBoat.add(new JLabel("Range"), "cell 0 4");
         JTextField rangeField = new JTextField();
-        createBoat.add(rangeField);
+        createBoat.add(rangeField, "w 100%");
 		JButton inputB = new JButton("Add");
-		inputB.addActionListener(new BoatActionLister(makeField, modelField, yearField, rangeField));
+		inputB.addActionListener(new BoatActionLister(makeBField, modelBField, yearBField, rangeField));
 		createBoat.add(inputB);
 		masterPanel.add(createBoat, "CreateBoat");
 		masterPanel.add(display, "Display");

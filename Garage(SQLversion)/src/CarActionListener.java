@@ -26,6 +26,7 @@ public class CarActionListener implements ActionListener {
 		this.electricCarButton = electricCarButton;
 		this.gasCarButton = gasCarButton;
 		this.efficiencyField = efficiencyField;
+		this.capacityField = capacityField;
 	}
 	
 	@Override
@@ -35,7 +36,7 @@ public class CarActionListener implements ActionListener {
 		 int year = Integer.parseInt(yearField.getText());
 		 int type = getType();
 		 double efficiency = Double.parseDouble(efficiencyField.getText());
-		 double capacity = Double.parseDouble(efficiencyField.getText());
+		 double capacity = Double.parseDouble(capacityField.getText());
 		 Connect stream = new Connect();
 		 stream.addNewCar(make,model,year,type,efficiency,capacity);
 		 

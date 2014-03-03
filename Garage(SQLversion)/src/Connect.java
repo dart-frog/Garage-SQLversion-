@@ -99,6 +99,19 @@ public class Connect {
 			e.printStackTrace();
 		}
 	}
+	public void deleteVehicle(int id){
+		Connection con = getConnection();
+		try{
+		String sql = "DELETE FROM nate.Vehicle WHERE id = " + id;
+		Statement stmt = con.createStatement();
+		int count = stmt.executeUpdate(sql);
+		System.out.println("ROWS AFECTED:" + count);
+		stmt.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	  
 	
 	public String retrieve(){
