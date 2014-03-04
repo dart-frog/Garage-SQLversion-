@@ -1,6 +1,8 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 
 public class Connect {
@@ -89,11 +91,19 @@ public class Connect {
 	public void addNewCar(String make, String model, int year, int type, double efficiency, double capacity){
 		Connection con = getConnection();
 		try{
-			String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId, range, capacity, efficiency) VALUES ('" + make + "', '" + model + "', " + year + ", " + type + "," + (int)(efficiency * capacity) +"," + efficiency + "," + capacity +")";
-			Statement stmt = con.createStatement();
-			int count = stmt.executeUpdate(sql);
+			//String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId, range, capacity, efficiency) VALUES ('" + make + "', '" + model + "', " + year + ", " + type + "," + (int)(efficiency * capacity) +"," + efficiency + "," + capacity +")";
+			String sql = "INSERT INTO nate.Vehicle(make,model,year,typeId, range, capacity, efficiency) VALUES (?,?,?,?,?,?,?)";
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, make);
+			pstmt.setString(2, model);
+			pstmt.setLong(3, year);
+			pstmt.setLong(4, type);
+			pstmt.setLong(5, (int)(efficiency * capacity));
+			pstmt.setLong(6, (long)capacity);
+			pstmt.setLong(7, (long)efficiency);
+			int count = pstmt.executeUpdate();
 			System.out.println("ROWS AFFECTED:" + count);
-			stmt.close();
+			pstmt.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -102,11 +112,12 @@ public class Connect {
 	public void deleteVehicle(int id){
 		Connection con = getConnection();
 		try{
-		String sql = "DELETE FROM nate.Vehicle WHERE id = " + id;
-		Statement stmt = con.createStatement();
-		int count = stmt.executeUpdate(sql);
+		String sql = "DELETE FROM nate.Vehicle WHERE id = ?";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setLong(1, id);
+		int count = pstmt.executeUpdate();
 		System.out.println("ROWS AFECTED:" + count);
-		stmt.close();
+		pstmt.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -114,15 +125,18 @@ public class Connect {
 	}
 	  
 	
-	public String retrieve(){
+	public String[][] retrieve(){
 		Connection con = getConnection();
-		String g = "";
+		ArrayList<String[]> g = new ArrayList<String[]>();
 		try{
 			String sql = "SELECT make,model,year FROM nate.Vehicle";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){
-				g += rs.getString("make") + ", " + rs.getString("model") + ", " + rs.getInt("year") + "\n";
+				int i = 0;
+				g.get(i) = new String[7];
+				
+				//g += rs.getString("make") + ", " + rs.getString("model") + ", " + rs.getInt("year") + "\n";
 			}
 			rs.close();
 			stmt.close();

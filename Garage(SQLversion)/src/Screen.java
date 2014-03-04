@@ -105,12 +105,12 @@ public class Screen extends JFrame {
         JTextField rangeField = new JTextField();
         createBoat.add(rangeField, "w 100%");
 		JButton inputB = new JButton("Add");
-		inputB.addActionListener(new BoatActionLister(makeBField, modelBField, yearBField, rangeField));
+		inputB.addActionListener(new BoatActionListener(makeBField, modelBField, yearBField, rangeField));
 		createBoat.add(inputB);
 		masterPanel.add(createBoat, "CreateBoat");
 		masterPanel.add(display, "Display");
         display.add(new JLabel("display"));
-        
+        JButton deleteButton = new JButton("Delete");
         add(masterPanel);
         
 	}

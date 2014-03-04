@@ -10,13 +10,13 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 
 
-public class BoatActionLister implements ActionListener {
+public class BoatActionListener implements ActionListener {
 	private JTextField makeField;	
 	private JTextField modelField;
 	private JTextField yearField;
 	private JTextField rangeField;
 	
-	public BoatActionLister(JTextField makeField, JTextField modelField, JTextField yearField, JTextField rangeField){
+	public BoatActionListener(JTextField makeField, JTextField modelField, JTextField yearField, JTextField rangeField){
 		this.makeField = makeField;
 		this.modelField = modelField;
 		this.yearField = yearField;
