@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -42,16 +43,20 @@ public class Screen extends JFrame {
         createCar = new JPanel(new MigLayout());
         createBoat = new JPanel(new MigLayout());
         home = new JPanel();
-        display = new JPanel();
+        display = new JPanel(new MigLayout());
         
         masterPanel.add(home, "Home");
         home.add(new JLabel("home"));
         JButton addButton = new JButton("Add New Vehicle");
         addButton.addActionListener( new SwitchStateButton(this, State.CREATE));
         Connect stream = new Connect();
-        JTextArea garage = new JTextArea(stream.retrieve());
+        String[] columns = {"Make","Model","Year", "Type", "Range", "Efficiency", "Capacity"};
+        JTable garage = new JTable(stream.retrieve(), columns);
         home.add(garage);
         home.add(addButton);
+        JButton removeButton = new JButton ("Delete Vehicle");
+        removeButton.addActionListener(new SwitchStateButton(this, State.DISPLAY));
+        home.add(removeButton);
         masterPanel.add(create, "Create");
         create.add(new JLabel("Would you like to add a Car or Boat"), "cell 0 0, center align");
         masterPanel.add(createCar, "CreateCar");
@@ -109,8 +114,12 @@ public class Screen extends JFrame {
 		createBoat.add(inputB);
 		masterPanel.add(createBoat, "CreateBoat");
 		masterPanel.add(display, "Display");
-        display.add(new JLabel("display"));
+        display.add(new JLabel("Which number vehicle do you want to delete"), "cell 0 1");
+        JTextField remove = new JTextField();
+        display.add(remove, "cell 0 1, w 100%");
         JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(new DeleteActionListener(remove));
+        display.add(deleteButton);
         add(masterPanel);
         
 	}

@@ -129,13 +129,28 @@ public class Connect {
 		Connection con = getConnection();
 		ArrayList<String[]> g = new ArrayList<String[]>();
 		try{
-			String sql = "SELECT make,model,year FROM nate.Vehicle";
+			String sql = "SELECT make,model,year,typeId,range,capacity, efficiency FROM nate.Vehicle";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
+			int i = 0;
 			while (rs.next()){
-				int i = 0;
-				g.get(i) = new String[7];
 				
+				g.add(new String[7]);
+				g.get(i)[0] = rs.getString("make");
+				g.get(i)[1] = rs.getString("model");
+				g.get(i)[2] = String.valueOf(rs.getLong("year"));
+				int t = rs.getInt("typeId");
+				g.get(i)[3] = typeToString(t);
+				g.get(i)[4] = String.valueOf(rs.getLong("range"));
+				if (t == 1){
+					g.get(i)[5] = null;
+					g.get(i)[6] = null;
+				}
+				else {
+					g.get(i)[5] = String.valueOf(rs.getLong("capacity"));
+					g.get(i)[6] = String.valueOf(rs.getLong("efficiency"));
+				}
+				i++;
 				//g += rs.getString("make") + ", " + rs.getString("model") + ", " + rs.getInt("year") + "\n";
 			}
 			rs.close();
@@ -144,7 +159,23 @@ public class Connect {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return g;
+		String[][] n = new String[g.size()][7]; 
+		for (int i = 0; i < g.size(); i++ ){
+			for (int j = 0; j < 7; j++){
+				n[i][j]=g.get(i)[j];
+			}
+		}
+		return n;
+	}
+	public String typeToString(int x){
+		if (x == 1){
+			return "Boat";
+		}
+		else if (x == 2)
+			return "Electric Car";
+		else{
+			return "Gas Car";
+		}
 	}
 	
 }
